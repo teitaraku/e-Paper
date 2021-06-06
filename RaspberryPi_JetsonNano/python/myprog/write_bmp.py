@@ -31,10 +31,10 @@ try:
         bmp_red: str = sys.argv[2]
 
     if not os.path.isfile(os.path.join(picdir, bmp_black)):
-        logging.info("file not found")
+        logging.info("file not found: " + bmp_black)
         exit()
-    if not bmp_red and not os.path.isfile(os.path.join(picdir, bmp_red)):
-        logging.info("file not found")
+    if bmp_red and not os.path.isfile(os.path.join(picdir, bmp_red)):
+        logging.info("file not found: " + bmp_red)
         exit()
 
     epd = epd7in5b_V2.EPD()
@@ -45,11 +45,12 @@ try:
 
     logging.info("write bmp file")
     image_black = Image.open(os.path.join(picdir, bmp_black))
-    image_red = None
-    if not bmp_red:
+    if bmp_red:
         image_red = Image.open(os.path.join(picdir, bmp_red))
+        epd.display(epd.getbuffer(image_black), epd.getbuffer(image_red))
+    else:
+        epd.display(epd.getbuffer(image_black), None)
 
-    epd.display(epd.getbuffer(image_black, image_red))
     time.sleep(2)
 
     logging.info("goto sleep...")

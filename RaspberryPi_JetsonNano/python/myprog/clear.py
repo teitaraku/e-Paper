@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-import logging
-import time
-from waveshare_epd import epd7in5b_V2
 import sys
 import os
-
 libdir = os.path.join(os.path.dirname(
     os.path.dirname(os.path.realpath(__file__))), 'lib')
 if os.path.exists(libdir):
     sys.path.append(libdir)
+
+import logging
+from waveshare_epd import epd7in5b_V2
+import time
 
 
 logging.basicConfig(level=logging.DEBUG)
